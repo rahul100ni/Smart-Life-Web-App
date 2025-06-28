@@ -1,68 +1,105 @@
 <template>
   <div class="app-container">
-    <!-- Login Screen -->
+    <!-- Premium Login Screen -->
     <div v-if="!loginState" class="login-container">
-      <div class="login-card">
-        <div class="login-header">
-          <div class="logo-container">
-            <div class="logo-icon">
-              <i class="material-icons-round">home</i>
+      <div class="login-content">
+        <!-- Brand Identity -->
+        <div class="brand-section">
+          <div class="brand-logo">
+            <div class="logo-glow">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 22C9 22 3 18 3 12V5L12 2L21 5V12C21 18 15 22 15 22" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 8V16M8 12H16" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00D4FF"/>
+                    <stop offset="100%" style="stop-color:#5B73FF"/>
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
           </div>
-          <h1 class="login-title">Smart Life</h1>
-          <p class="login-subtitle">Control your smart devices from anywhere</p>
+          <h1 class="brand-title">SMART LIFE</h1>
+          <p class="brand-subtitle">Intelligent Living, Simplified</p>
         </div>
-        
-        <el-form :model="loginForm" class="login-form" @submit.prevent="login">
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <el-input 
-              v-model="loginForm.username" 
-              type="email"
-              placeholder="Enter your email"
-              size="large"
-              class="form-input"
-              :prefix-icon="'User'"
-            />
-          </div>
+
+        <!-- Login Form -->
+        <div class="login-form-container">
+          <h2 class="form-title">Welcome Back</h2>
           
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <el-input 
-              v-model="loginForm.password" 
-              type="password"
-              placeholder="Enter your password"
-              size="large"
-              class="form-input"
-              :prefix-icon="'Lock'"
-              show-password
-            />
+          <form @submit.prevent="login" class="login-form">
+            <div class="input-group">
+              <div class="input-wrapper">
+                <input 
+                  v-model="loginForm.username"
+                  type="email"
+                  placeholder="Email address"
+                  class="premium-input"
+                  required
+                />
+                <div class="input-border"></div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <div class="input-wrapper">
+                <input 
+                  v-model="loginForm.password"
+                  type="password"
+                  placeholder="Password"
+                  class="premium-input"
+                  required
+                />
+                <div class="input-border"></div>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              class="login-button"
+              :disabled="isLoading"
+            >
+              <span v-if="!isLoading" class="button-content">
+                <span>Sign In</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span v-else class="loading-content">
+                <div class="loading-spinner"></div>
+                <span>Authenticating...</span>
+              </span>
+            </button>
+          </form>
+
+          <div class="form-footer">
+            <p class="security-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                <path d="M7 11V7A5 5 0 0 1 17 7V11" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              End-to-end encrypted connection
+            </p>
           </div>
-          
-          <el-button 
-            type="primary" 
-            size="large"
-            class="login-button"
-            @click="login()"
-            :loading="isLoading"
-          >
-            <span v-if="!isLoading">Sign In</span>
-            <span v-else>Signing In...</span>
-          </el-button>
-        </el-form>
-        
-        <div class="login-footer">
-          <p class="footer-text">
-            Secure connection to your Smart Life account
-          </p>
         </div>
       </div>
-      
-      <!-- Background decoration -->
-      <div class="background-decoration">
-        <div class="decoration-circle circle-1"></div>
-        <div class="decoration-circle circle-2"></div>
-        <div class="decoration-circle circle-3"></div>
+
+      <!-- Animated Background -->
+      <div class="background-effects">
+        <div class="neural-network">
+          <div class="node node-1"></div>
+          <div class="node node-2"></div>
+          <div class="node node-3"></div>
+          <div class="node node-4"></div>
+          <div class="node node-5"></div>
+          <div class="connection connection-1"></div>
+          <div class="connection connection-2"></div>
+          <div class="connection connection-3"></div>
+        </div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="grid-overlay"></div>
       </div>
     </div>
 
@@ -224,14 +261,21 @@ const triggerScene = async (device) => {
 </script>
 
 <style scoped>
-.app-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
 }
 
-/* Login Screen Styles */
+.app-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+}
+
+/* Premium Login Screen */
 .login-container {
   min-height: 100vh;
+  background: radial-gradient(ellipse at top, #0F0F23 0%, #000000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,24 +284,18 @@ const triggerScene = async (device) => {
   overflow: hidden;
 }
 
-.login-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 3rem;
-  width: 100%;
-  max-width: 440px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.login-content {
   position: relative;
   z-index: 10;
-  animation: slideUp 0.6s ease-out;
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-@keyframes slideUp {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -265,127 +303,218 @@ const triggerScene = async (device) => {
   }
 }
 
-.login-header {
+/* Brand Section */
+.brand-section {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
-.logo-container {
+.brand-logo {
   margin-bottom: 1.5rem;
 }
 
-.logo-icon {
+.logo-glow {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
+  margin: 0 auto;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  position: relative;
+  animation: pulse 3s ease-in-out infinite;
 }
 
-.logo-icon i {
-  font-size: 2.5rem;
-  color: white;
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 20px rgba(0, 212, 255, 0);
+  }
 }
 
-.login-title {
+.brand-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2d3748;
-  margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #00D4FF 0%, #5B73FF 50%, #FFFFFF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
 }
 
-.login-subtitle {
-  color: #718096;
-  font-size: 1.1rem;
+.brand-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* Login Form */
+.login-form-container {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.form-title {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.premium-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: #FFFFFF;
+  font-weight: 400;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  font-family: inherit;
+}
+
+.premium-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+.premium-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 
+    0 0 0 3px rgba(0, 212, 255, 0.1),
+    0 8px 32px rgba(0, 212, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.input-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00D4FF, #5B73FF);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.premium-input:focus + .input-border {
+  transform: scaleX(1);
+}
+
+.login-button {
+  background: linear-gradient(135deg, #00D4FF 0%, #5B73FF 100%);
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 212, 255, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.login-button:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #FFFFFF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.form-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
   margin: 0;
   font-weight: 400;
 }
 
-.login-form {
-  margin-bottom: 2rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.form-input :deep(.el-input__wrapper) {
-  border-radius: 12px;
-  border: 2px solid #e2e8f0;
-  box-shadow: none;
-  transition: all 0.3s ease;
-  padding: 0.75rem 1rem;
-}
-
-.form-input :deep(.el-input__wrapper:hover) {
-  border-color: #cbd5e0;
-}
-
-.form-input :deep(.el-input__wrapper.is-focus) {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-input :deep(.el-input__inner) {
-  font-size: 1rem;
-  color: #2d3748;
-}
-
-.form-input :deep(.el-input__inner::placeholder) {
-  color: #a0aec0;
-}
-
-.login-button {
-  width: 100%;
-  height: 56px;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.login-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-}
-
-.login-button:active {
-  transform: translateY(0);
-}
-
-.login-footer {
-  text-align: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
-}
-
-.footer-text {
-  color: #718096;
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-/* Background Decoration */
-.background-decoration {
+/* Background Effects */
+.background-effects {
   position: absolute;
   top: 0;
   left: 0;
@@ -395,47 +524,137 @@ const triggerScene = async (device) => {
   z-index: 1;
 }
 
-.decoration-circle {
+.neural-network {
   position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  animation: float 6s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.circle-1 {
+.node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 212, 255, 0.6);
+  border-radius: 50%;
+  animation: nodeGlow 4s ease-in-out infinite;
+}
+
+.node-1 { top: 20%; left: 15%; animation-delay: 0s; }
+.node-2 { top: 30%; right: 20%; animation-delay: 1s; }
+.node-3 { bottom: 40%; left: 25%; animation-delay: 2s; }
+.node-4 { bottom: 25%; right: 15%; animation-delay: 3s; }
+.node-5 { top: 60%; left: 50%; animation-delay: 1.5s; }
+
+@keyframes nodeGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+  animation: connectionFlow 6s ease-in-out infinite;
+}
+
+.connection-1 {
+  top: 25%;
+  left: 15%;
   width: 200px;
-  height: 200px;
-  top: 10%;
-  left: 10%;
+  transform: rotate(25deg);
   animation-delay: 0s;
 }
 
-.circle-2 {
+.connection-2 {
+  bottom: 35%;
+  right: 20%;
   width: 150px;
-  height: 150px;
-  top: 60%;
-  right: 10%;
+  transform: rotate(-45deg);
   animation-delay: 2s;
 }
 
-.circle-3 {
-  width: 100px;
-  height: 100px;
-  bottom: 20%;
-  left: 20%;
+.connection-3 {
+  top: 55%;
+  left: 30%;
+  width: 180px;
+  transform: rotate(15deg);
   animation-delay: 4s;
 }
 
-@keyframes float {
+@keyframes connectionFlow {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    opacity: 0;
   }
   50% {
-    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.6;
   }
 }
 
-/* Main App Styles */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+  top: -150px;
+  right: -150px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(91, 115, 255, 0.1) 0%, transparent 70%);
+  bottom: -125px;
+  left: -125px;
+  animation-delay: 4s;
+}
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridShift 20s linear infinite;
+}
+
+@keyframes gridShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Main App Styles (keeping existing) */
 .main-app {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -506,7 +725,6 @@ const triggerScene = async (device) => {
   padding: 2rem;
 }
 
-/* Device Cards (keeping existing styles but with minor improvements) */
 .el-card.device {
   margin-bottom: 1rem;
   border-radius: 16px;
@@ -574,12 +792,16 @@ const triggerScene = async (device) => {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .login-card {
-    padding: 2rem;
-    margin: 1rem;
+  .login-content {
+    max-width: 100%;
+    padding: 0 1rem;
   }
   
-  .login-title {
+  .login-form-container {
+    padding: 2rem;
+  }
+  
+  .brand-title {
     font-size: 2rem;
   }
   
@@ -595,6 +817,16 @@ const triggerScene = async (device) => {
   
   .devices-container {
     padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form-container {
+    padding: 1.5rem;
+  }
+  
+  .brand-title {
+    font-size: 1.75rem;
   }
 }
 </style>
