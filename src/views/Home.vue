@@ -598,4 +598,3 @@ const triggerScene = async (device) => {
   }
 }
 </style>
-</template>
